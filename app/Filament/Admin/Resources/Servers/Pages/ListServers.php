@@ -12,7 +12,6 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Grouping\Group;
@@ -93,9 +92,6 @@ class ListServers extends ListRecords
             ->recordActions([
                 Action::make('View')
                     ->label(trans('admin/server.view'))
-                    ->iconButton()
-                    ->icon('tabler-terminal')
-                    ->iconSize(IconSize::Large)
                     ->url(fn (Server $server) => Console::getUrl(panel: 'server', tenant: $server))
                     ->authorize(fn (Server $server) => user()?->canAccessTenant($server)),
                 EditAction::make(),
@@ -103,7 +99,10 @@ class ListServers extends ListRecords
             ->emptyStateIcon('tabler-brand-docker')
             ->searchable()
             ->emptyStateDescription('')
-            ->emptyStateHeading(trans('admin/server.no_servers'));
+            ->emptyStateHeading(trans('admin/server.no_servers'))
+            ->emptyStateActions([
+                CreateAction::make(),
+            ]);
     }
 
     /** @return array<Action|ActionGroup> */
@@ -111,8 +110,7 @@ class ListServers extends ListRecords
     {
         return [
             CreateAction::make()
-                ->iconButton()->iconSize(IconSize::ExtraLarge)
-                ->icon('tabler-file-plus'),
+                ->hidden(fn () => Server::count() <= 0),
         ];
     }
 }

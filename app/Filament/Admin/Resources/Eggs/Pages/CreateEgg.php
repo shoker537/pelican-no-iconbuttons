@@ -27,7 +27,6 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\IconSize;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
@@ -45,9 +44,7 @@ class CreateEgg extends CreateRecord
     protected function getDefaultHeaderActions(): array
     {
         return [
-            $this->getCreateFormAction()->formId('form')
-                ->iconButton()->iconSize(IconSize::ExtraLarge)
-                ->icon('tabler-file-plus'),
+            $this->getCreateFormAction()->formId('form'),
         ];
     }
 

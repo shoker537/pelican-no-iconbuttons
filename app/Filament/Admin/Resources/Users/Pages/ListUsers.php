@@ -9,7 +9,6 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Enums\IconSize;
 
 class ListUsers extends ListRecords
 {
@@ -22,9 +21,7 @@ class ListUsers extends ListRecords
     protected function getDefaultHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->iconButton()->iconSize(IconSize::ExtraLarge)
-                ->icon('tabler-user-plus'),
+            CreateAction::make(),
         ];
     }
 }

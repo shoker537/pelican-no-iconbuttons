@@ -9,7 +9,6 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Enums\IconSize;
 
 class ListRoles extends ListRecords
 {
@@ -22,9 +21,7 @@ class ListRoles extends ListRecords
     protected function getDefaultHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->icon('tabler-file-plus')
-                ->iconButton()->iconSize(IconSize::ExtraLarge),
+            CreateAction::make(),
         ];
     }
 }

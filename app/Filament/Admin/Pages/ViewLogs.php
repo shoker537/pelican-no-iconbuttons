@@ -19,15 +19,14 @@ class ViewLogs extends BaseViewLog
     public function getHeaderActions(): array
     {
         return [
-            BackAction::make()
-                ->icon('tabler-arrow-left')->iconSize(IconSize::ExtraLarge)->iconButton(),
             DeleteAction::make(withTooltip: true)
-                ->icon('tabler-trash')->iconSize(IconSize::ExtraLarge)->iconButton(),
+                ->icon('tabler-trash')->iconSize(IconSize::Medium),
             DownloadAction::make(withTooltip: true)
-                ->icon('tabler-file-download')->iconSize(IconSize::ExtraLarge)->iconButton(),
+                ->icon('tabler-file-download')->iconSize(IconSize::Medium),
             Action::make('uploadLogs')
+                ->button()
                 ->hiddenLabel()
-                ->icon('tabler-world-upload')->iconSize(IconSize::ExtraLarge)->iconButton()
+                ->icon('tabler-world-upload')->iconSize(IconSize::Medium)
                 ->requiresConfirmation()
                 ->tooltip(trans('admin/log.actions.upload_tooltip', ['url' => 'logs.pelican.dev']))
                 ->modalHeading(trans('admin/log.actions.upload_logs'))
@@ -99,6 +98,8 @@ class ViewLogs extends BaseViewLog
                         return;
                     }
                 }),
+            BackAction::make()
+                ->icon('tabler-arrow-left')->iconSize(IconSize::Medium),
         ];
     }
 }

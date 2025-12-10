@@ -15,6 +15,7 @@ use App\Traits\Filament\CanModifyForm;
 use App\Traits\Filament\CanModifyTable;
 use Exception;
 use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ReplicateAction;
@@ -113,6 +114,9 @@ class WebhookResource extends Resource
             ->emptyStateIcon('tabler-webhook')
             ->emptyStateDescription('')
             ->emptyStateHeading(trans('admin/webhook.no_webhooks'))
+            ->emptyStateActions([
+                CreateAction::make(),
+            ])
             ->persistFiltersInSession()
             ->filters([
                 SelectFilter::make('type')

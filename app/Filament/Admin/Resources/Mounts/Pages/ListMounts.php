@@ -3,13 +3,13 @@
 namespace App\Filament\Admin\Resources\Mounts\Pages;
 
 use App\Filament\Admin\Resources\Mounts\MountResource;
+use App\Models\Mount;
 use App\Traits\Filament\CanCustomizeHeaderActions;
 use App\Traits\Filament\CanCustomizeHeaderWidgets;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Enums\IconSize;
 
 class ListMounts extends ListRecords
 {
@@ -23,8 +23,7 @@ class ListMounts extends ListRecords
     {
         return [
             CreateAction::make()
-                ->iconButton()->iconSize(IconSize::ExtraLarge)
-                ->icon('tabler-file-plus'),
+                ->hidden(fn () => Mount::count() <= 0),
         ];
     }
 }

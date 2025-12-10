@@ -12,6 +12,7 @@ use App\Traits\Filament\CanCustomizeRelations;
 use App\Traits\Filament\CanModifyForm;
 use App\Traits\Filament\CanModifyTable;
 use Exception;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -103,7 +104,10 @@ class MountResource extends Resource
             ])
             ->emptyStateIcon('tabler-layers-linked')
             ->emptyStateDescription('')
-            ->emptyStateHeading(trans('admin/mount.no_mounts'));
+            ->emptyStateHeading(trans('admin/mount.no_mounts'))
+            ->emptyStateActions([
+                CreateAction::make(),
+            ]);
     }
 
     /**

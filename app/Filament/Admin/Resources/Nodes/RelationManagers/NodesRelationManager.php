@@ -2,14 +2,13 @@
 
 namespace App\Filament\Admin\Resources\Nodes\RelationManagers;
 
-use App\Enums\ServerResourceType;
 use App\Models\Server;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ServersRelationManager extends RelationManager
+class NodesRelationManager extends RelationManager
 {
     protected static string $relationship = 'servers';
 
@@ -43,18 +42,11 @@ class ServersRelationManager extends RelationManager
                     ->label(trans('admin/node.primary_allocation'))
                     ->disabled(fn (Server $server) => $server->allocations->count() <= 1)
                     ->options(fn (Server $server) => $server->allocations->take(1)->mapWithKeys(fn ($allocation) => [$allocation->id => $allocation->address]))
-                    ->selectablePlaceholder(fn (Server $server) => $server->allocations->count() <= 1)
-                    ->placeholder(trans('admin/server.none'))
+                    ->selectablePlaceholder(fn (SelectColumn $select) => !$select->isDisabled())
+                    ->placeholder(trans('admin/node.none'))
                     ->sortable(),
-                TextColumn::make('cpu')
-                    ->label(trans('admin/node.cpu'))
-                    ->state(fn (Server $server) => $server->formatResource(ServerResourceType::CPULimit)),
-                TextColumn::make('memory')
-                    ->label(trans('admin/node.memory'))
-                    ->state(fn (Server $server) => $server->formatResource(ServerResourceType::MemoryLimit)),
-                TextColumn::make('disk')
-                    ->label(trans('admin/node.disk'))
-                    ->state(fn (Server $server) => $server->formatResource(ServerResourceType::DiskLimit)),
+                TextColumn::make('memory')->label(trans('admin/node.memory')),
+                TextColumn::make('cpu')->label(trans('admin/node.cpu')),
                 TextColumn::make('databases_count')
                     ->counts('databases')
                     ->label(trans('admin/node.databases'))
